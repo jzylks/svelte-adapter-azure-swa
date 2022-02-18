@@ -76,6 +76,7 @@ async function toResponse(rendered) {
 	return {
 		status,
 		body: resBody,
-		headers: resHeaders
+		headers: resHeaders,
+		isRaw: resHeaders['Content-Type'] == 'image/jpeg'
 	};
 }
