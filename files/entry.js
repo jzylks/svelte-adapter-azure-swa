@@ -74,8 +74,7 @@ async function toResponse(rendered) {
 	});
 	
 	const rawBody = new Uint8Array(await rendered.arrayBuffer());
-	console.log("Returning raw byte array");
-
+	
 	return {
 		status,
 		body: rawBody,
