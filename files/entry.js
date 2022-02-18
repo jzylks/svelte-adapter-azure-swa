@@ -73,10 +73,12 @@ async function toResponse(rendered) {
 		resHeaders[key] = value;
 	});
 
+	console.log(resHeaders);
+	
 	return {
 		status,
 		body: resBody,
 		headers: resHeaders,
-		isRaw: resHeaders['Content-Type'] == 'image/jpeg'
+		isRaw: true
 	};
 }
