@@ -65,20 +65,33 @@ function toRequest(context) {
  */
 async function toResponse(rendered) {
 	const { status } = rendered;
-	const resBody = await rendered.text();
-
+	
 	/** @type {Record<string, string>} */
 	const resHeaders = {};
 	rendered.headers.forEach((value, key) => {
 		resHeaders[key] = value;
 	});
-
-	console.log(resHeaders);
 	
-	return {
-		status,
-		body: resBody,
-		headers: resHeaders,
-		isRaw: true
-	};
+	if (resHeaders['content-type'] == 'image/jpeg') {
+		const rawBody = new Uint8Array(await rendered.arrayBuffer());
+		console.log("Returning raw byte array");
+
+		return {
+			status,
+			body: rawBody,
+			headers: resHeaders,
+			isRaw: true
+		};
+	} else {
+		const resBody = await rendered.text();
+		console.log("Returning text");
+
+		return {
+			status,
+			body: resBody,
+			headers: resHeaders,
+		};
+	}
+	
+	
 }
