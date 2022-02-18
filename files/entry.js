@@ -1,5 +1,4 @@
 import { __fetch_polyfill } from '@sveltejs/kit/install-fetch';
-import {is_text} from '@sveltejs/kit/assets/server';
 
 import { App } from 'APP';
 import { manifest } from 'MANIFEST';
@@ -74,24 +73,13 @@ async function toResponse(rendered) {
 		resHeaders[key] = value;
 	});
 	
-	if (is_text(resHeaders['content-type'])) {
-		const resBody = await rendered.text();
-		console.log("Returning text");
+	const rawBody = new Uint8Array(await rendered.arrayBuffer());
+	console.log("Returning raw byte array");
 
-		return {
-			status,
-			body: resBody,
-			headers: resHeaders,
-		};
-	} else {
-		const rawBody = new Uint8Array(await rendered.arrayBuffer());
-		console.log("Returning raw byte array");
-
-		return {
-			status,
-			body: rawBody,
-			headers: resHeaders,
-			isRaw: true
-		};
-	}
+	return {
+		status,
+		body: rawBody,
+		headers: resHeaders,
+		isRaw: true
+	};
 }
