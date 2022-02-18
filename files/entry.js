@@ -1,5 +1,5 @@
 import { __fetch_polyfill } from '@sveltejs/kit/install-fetch';
-import {is_text} from '@sveltejs/kit/runtime/server/endpoint';
+import {is_text} from '@sveltejs/kit/assets/server';
 
 import { App } from 'APP';
 import { manifest } from 'MANIFEST';
