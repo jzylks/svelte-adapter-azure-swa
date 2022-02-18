@@ -66,18 +66,17 @@ function toRequest(context) {
  */
 async function toResponse(rendered) {
 	const { status } = rendered;
-	
+	const resBody = new Uint8Array(await rendered.arrayBuffer());
+
 	/** @type {Record<string, string>} */
 	const resHeaders = {};
 	rendered.headers.forEach((value, key) => {
 		resHeaders[key] = value;
 	});
-	
-	const rawBody = new Uint8Array(await rendered.arrayBuffer());
-	
+
 	return {
 		status,
-		body: rawBody,
+		body: resBody,
 		headers: resHeaders,
 		isRaw: true
 	};
