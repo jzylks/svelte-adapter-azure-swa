@@ -1,5 +1,4 @@
 import { __fetch_polyfill } from '@sveltejs/kit/install-fetch';
-
 import { App } from 'APP';
 import { manifest } from 'MANIFEST';
 
